@@ -1,32 +1,29 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 let ref;
-export default class SEARCH_PRODUCT extends Component {
+export default class ORDER_PRODUCT extends Component {
     
     constructor(props) {
         super(props);
 
         this.state = {
-            productname: '',
-            username:this.props.location.username
+            productname:this.props.location.productname,
+            quantity:0
         };
-        this.onChangeProductname = this.onChangeProductname.bind(this);
+        this.onChangeQuantity = this.onChangeQuantity.bind(this);
         ref=this;
 
     }
     
-    onChangeProductname(event) {
+    onChangeQuantity(event) {
         // alert(this);
-        this.setState({ productname: event.target.value });
+        this.setState({ quantity: event.target.value });
     }
     onSubmit(e) {
         e.preventDefault();
-        alert("searching!!");
-        alert(ref.state.username);
          ref.props.history.push({
              pathname: '/login/customer/search-products/products',
-             product_name: ref.state.productname,
-             username:ref.state.username
+             product_name: ref.state.productname
          });
          ref.setState({
              productname:''
@@ -37,11 +34,11 @@ export default class SEARCH_PRODUCT extends Component {
             <div>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
-                        <label>Productname: </label>
+                        <label>Quantity: </label>
                         <input type="text" 
                                className="form-control" 
-                               value={this.state.productname}
-                               onChange={this.onChangeProductname}
+                               value={this.state.quantity}
+                               onChange={this.onChangeQuantity}
                                />
                     </div>
                     <div className="form-group">

@@ -10,6 +10,8 @@ import Customer from './components/customer.component'
 import Products from './components/products.component'
 import Add_Products from './components/add_products.component'
 import SEARCH_PRODUCT from './components/customer-search-product.component'
+import ORDER_PRODUCT from './components/customer-order-product.component'
+import LIST_PRODUCT from './components/customer-list-product.component'
 // import Customer from './components/customer.component'
 // import SEARCH_PRODUCT from  './components/customer-search-product.component' 
 import Searched_Products from './components/searched-product.component'
@@ -47,7 +49,8 @@ function App() {
 
         {/* <Route path="/login/customer/search-products" exact component={SEARCH_PRODUCT}/> */}
         <Route path="/login/customer/search-products/products" exact component={Searched_Products}/> 
-        
+        <Route path="/login/customer/search-products/products/order" exact component={ORDER_PRODUCT}/>
+        <Route path="/login/customer/list-products" exact component={LIST_PRODUCT}/>
         {/* pathname:'/login/customer/search-product/products', */}
 
       </div>

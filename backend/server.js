@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const app = express();
 const PORT = 4000;
@@ -9,6 +9,7 @@ const userRoutes = express.Router();
 
 let User = require('./models/user');
 let Product=require('./models/product');
+let Order=require('./models/order');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -42,6 +43,17 @@ userRoutes.route('/a').get(function(req, res) {
         }
     });
 });
+// Getting all the orders
+userRoutes.route('/a1').get(function(req, res) {
+    Order.find(function(err, order) 
+    {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json(order);
+        }
+    });
+});
 
 // Adding a new user
 userRoutes.route('/add').post(function(req, res) {
@@ -60,6 +72,20 @@ userRoutes.route('/add_products').post(function(req, res) {
     product.save()
         .then(product => {
             res.status(200).json({'Product': 'Product added successfully'});
+
+        })
+        .catch(err => {
+            res.status(400).send('Error');
+        });
+});
+
+// Add Orders in the database
+userRoutes.route('/add_order').post(function(req, res) {
+    console.log("in");
+    let order = new Order(req.body);
+    order.save()
+        .then(order => {
+            res.status(200).json({'Order': 'Order added successfully'});
 
         })
         .catch(err => {

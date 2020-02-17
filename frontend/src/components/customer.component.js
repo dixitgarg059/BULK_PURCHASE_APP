@@ -7,6 +7,9 @@ import "bootstrap/dist/css/bootstrap.min.css"
 export default class Customer extends Component{
   constructor(props){
     super(props);
+    this.state={
+        username:this.props.location.username
+    }
     // this.state={
     //   username :'',
     //   productname :'',
@@ -16,7 +19,16 @@ export default class Customer extends Component{
     // }
   }
   searchProducts=() => {
-    this.props.history.push('/login/customer/search-products');
+    this.props.history.push({
+        pathname:'/login/customer/search-products',
+        username:this.state.username});
+  }
+  listProducts=() => {
+    //   alert(this.state.username);
+      this.props.history.push({
+          pathname:'/login/customer/list-products',
+          username:this.state.username
+      });
   }
 //   createProduct=() => {
 //     this.props.history.push('/login/vendor/add-products');
@@ -29,9 +41,15 @@ export default class Customer extends Component{
             <ul className="navbar-nav mr-auto">
               <li className="navbar-item">
                 <button type="button" onClick={this.searchProducts}>
-                  Search Product
+                  Search Products
                 </button>
               </li>
+              <li className="navbar-item">
+                <button type="button" onClick={this.listProducts}>
+                  List Products
+                </button>
+              </li>
+              
               {/* <li className="navbar-item">
                 <button type="button" onClick={this.showProducts}>
                 SHOW-PRODUCTS

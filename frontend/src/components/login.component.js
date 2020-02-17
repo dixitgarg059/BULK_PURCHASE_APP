@@ -44,7 +44,10 @@ export default class LOGIN extends Component {
                     }
                     else if(res.data.type === "Customer")
                     {
-                        this.props.history.push('/login/customer');
+                        this.props.history.push({
+                            pathname:'/login/customer',
+                            username:newUser.username});
+                        
                     }
                 }
              });

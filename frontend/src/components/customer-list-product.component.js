@@ -1,22 +1,19 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 let ref;
-export default class Searched_Products extends Component {
+export default class LIST_PRODUCT extends Component {
     
     constructor(props) {
-        // alert("debuff");
         super(props);
-        ref=this;       
+        ref=this;
         ref.state = {
             username:ref.props.location.username,
-            productname :ref.props.location.product_name,
-            // productname:'',
             products: []
         }
     }
 
     componentDidMount() {
-        axios.get('http://localhost:4000/a')
+        axios.get('http://localhost:4000/a1')
              .then(response => {
                  ref.setState({products: response.data});
              })
@@ -24,41 +21,32 @@ export default class Searched_Products extends Component {
                  console.log(error);
              })
     }
-    Order=(ownername) =>{
-        // this.props.history.push()
-        alert("you are ordering");
-        alert(this.state.username);
-        this.props.history.push({
-            pathname:'/login/customer/search-products/products/order',
-            customername:this.state.username,
-            vendorname:ownername,
-            productname:this.state.productname
-          });
-    }
+
     render() {
-        
         return (
             <div>
                 <table className="table table-striped">
                     <thead>
                         <tr>
-                            <th>Username</th>
+                            <th>Vendorname</th>
                             <th>Productname</th>
-                            <th>Price</th>
                             <th>Quantity</th>
+                            <th>Status</th>
+                            <th>Customername</th> 
+
                         </tr>
                     </thead>
                     <tbody>
                     { 
                         ref.state.products.map((currentProduct, i) => {
-                            if(currentProduct.productname === ref.state.productname)
+                            if(currentProduct.customername === ref.state.username)
                             return (
                                 <tr>
-                                    <td>{currentProduct.username}</td>
+                                    <td>{currentProduct.vendorname}</td>
                                     <td>{currentProduct.productname}</td>
-                                    <td>{currentProduct.price}</td>
-                                    <td>{currentProduct.quantity}</td>  
-                                    <button type="button" onClick={() => this.Order(currentProduct.username)}>ORDER</button>
+                                    <td>{currentProduct.quantity}</td>
+                                    <td>{currentProduct.status}</td>
+                                    <td>{currentProduct.customername}</td>
                                 </tr>
                             )
                         })
