@@ -1,0 +1,58 @@
+import React, {Component} from 'react';
+import axios from 'axios';
+
+export default class SEARCH_PRODUCT extends Component {
+    
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            productname: ''
+        }
+
+        this.onChangeProductname = this.onChangeProductname.bind(this);
+
+    }
+    
+    onChangeProductname(event) {
+        this.setState({ productname: event.target.value });
+    }
+    onSubmit(e) {
+        // e.preventDefault();
+        // const Product = {
+        //     productname: this.state.productname
+
+        // }
+        // axios.post('http://localhost:4000/searchproduct', Product)
+        //      .then(res => console.log(res.data));
+        // // this.setState({
+        // //     username: '',
+        // //     email: '',
+        // //     type:''
+        // // });
+        this.props.history.push({
+            pathname:'/login/customer/search-product/products',
+            user:this.state.username
+
+          });
+    }
+    render() {
+        return (
+            <div>
+                <form onSubmit={this.onSubmit}>
+                    <div className="form-group">
+                        <label>Productname: </label>
+                        <input type="text" 
+                               className="form-control" 
+                               value={this.state.productname}
+                               onChange={this.onChangeProductname}
+                               />
+                    </div>
+                    <div className="form-group">
+                        <input type="submit" value="Search" className="btn btn-primary"/>
+                    </div>
+                </form>
+            </div>
+        )
+    }
+}
