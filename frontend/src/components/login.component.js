@@ -33,7 +33,7 @@ export default class LOGIN extends Component {
         axios.post('http://localhost:4000/check', newUser)
              .then(res => {
                  if(!res.data)
-                    alert("INVALID USER!!\nPLEASE CREATE ACCOUNT FIRST");
+                    alert("invalid userame or  password\n");
                 else
                 {
                     if(res.data.type === "Vendor")

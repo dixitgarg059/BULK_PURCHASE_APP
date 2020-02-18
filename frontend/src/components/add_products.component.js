@@ -42,6 +42,13 @@ export default class Add_Products extends Component {
             status:"Waiting",
             count:0
         }
+        var flg=1;
+        if(this.state.quantity == 0)
+        {
+          alert("not able to add 0 quantity product\n");
+          flg=0;
+        }
+        if(flg==1){
         // console.log("onsubmit clicked");
 
         axios.post('http://localhost:4000/add_products', newProduct)
@@ -52,6 +59,7 @@ export default class Add_Products extends Component {
             price:0,
             quantity:0 
         });
+      }
     }
     showProducts=() => {
         if(!this.state.username)

@@ -138,7 +138,6 @@ export default class LIST_PRODUCT extends Component {
                         <th>Vendorname</th>
                         <th>Productname</th>
                         <th>Quantity Ordered</th>
-                        <th>Vendor Rating</th>
                         <th>Status</th>
                         <th>Quantity left for the order to get placed</th>
                     </tr>          
@@ -154,7 +153,6 @@ export default class LIST_PRODUCT extends Component {
                                         <td>{currentProduct.vendorname}</td>
                                         <td>{currentProduct.productname}</td>
                                         <td>{currentProduct.quantity}</td>
-                                        <td>{ref.getVendorRating(currentProduct.vendorname)}</td>
                                         <td>Waiting</td>  
                                         <td>{ref.getQuantity(currentProduct.productname,currentProduct.vendorname)}</td>
                                         <button type="button" onClick={() => this.Edit(currentProduct.vendorname,currentProduct.productname)}>Edit</button>
@@ -172,7 +170,6 @@ export default class LIST_PRODUCT extends Component {
                                         <td>{currentProduct.vendorname}</td>
                                         <td>{currentProduct.productname}</td>
                                         <td>{currentProduct.quantity}</td>
-                                        <td>{ref.getVendorRating(currentProduct.vendorname)}</td>
                                         <td>Placed</td>  
                                         <td>0</td>
                                         <button type="button" onClick={() => this.RateVendor(currentProduct.vendorname,currentProduct.productname)}>RateVendor</button>
@@ -191,7 +188,6 @@ export default class LIST_PRODUCT extends Component {
                                         <td>{currentProduct.vendorname}</td>
                                         <td>{currentProduct.productname}</td>
                                         <td>{currentProduct.quantity}</td>
-                                        <td>{ref.getVendorRating(currentProduct.vendorname)}</td>
                                         <td>Dispatched</td>  
                                         <td>0</td>
                                         <button type="button" onClick={() => this.ProductReview(currentProduct.vendorname,currentProduct.productname)}>Review</button>
@@ -207,7 +203,6 @@ export default class LIST_PRODUCT extends Component {
                                         <td>{currentProduct.vendorname}</td>
                                         <td>{currentProduct.productname}</td>
                                         <td>{currentProduct.quantity}</td>
-                                        <td>{ref.getVendorRating(currentProduct.vendorname)}</td>
                                         <td>{ref.getStatus(currentProduct.productname,currentProduct.vendorname)}</td>  
                                         <td>0</td>
                                     </tr>

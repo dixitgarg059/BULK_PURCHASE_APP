@@ -19,6 +19,7 @@ export default class ORDER_PRODUCT extends Component {
     }
     
     onChangeQuantity(event) {
+
         ref.setState({ quantity: event.target.value });
     }
     searchProducts=() => {
@@ -43,8 +44,11 @@ export default class ORDER_PRODUCT extends Component {
             quantity:ref.state.quantity,
             status:"WAITING"
         }
-        axios.post('http://localhost:4000/add_order', Product)
-            .then(res => console.log(res.data));
+        if(ref.state.quantity == 0)
+        {
+            alert("invalid input\n");
+            return ;
+        }
         const Pr={
             username:ref.state.vendorname,
             productname:ref.state.productname
@@ -57,19 +61,23 @@ export default class ORDER_PRODUCT extends Component {
                 let quant=parseInt(response.data.quantity);
                 let cnt=response.data.count;
                 new_cnt=parseInt(cnt)+parseInt(ref.state.quantity);
-                if(new_cnt >= quant)
+                if(new_cnt > quant)
+                {
+                    alert("ordered quantity cannot exceed quantity remaining in the bundle");
+                    return ;
+    
+                }
+                else if(new_cnt == quant)
                 {
                     
                     stat="Ready";
-                      
-
                 }
                 else
                 {
-                    
                     stat="Waiting";
                 }
-                
+                axios.post('http://localhost:4000/add_order', Product)
+                    .then(res => console.log(res.data));
                 const Pr2={
                     username:ref.state.vendorname,
                     productname:ref.state.productname,
@@ -78,10 +86,9 @@ export default class ORDER_PRODUCT extends Component {
                 }
                 axios.put('http://localhost:4000/update-product',Pr2)
                     .then(response => console.log(""));
-                    alert("Ordering done!\n");
             });
-        
-    }
+        }
+    
     render() {
         return (
             <div>
