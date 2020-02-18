@@ -15,13 +15,22 @@ export default class SEARCH_PRODUCT extends Component {
     }
     
     onChangeProductname(event) {
-        // alert(this);
         this.setState({ productname: event.target.value });
     }
+    searchProducts=() => {
+    this.props.history.push({
+        pathname:'/login/customer/search-products',
+        username:this.state.username});
+  }
+  listProducts=() => {
+
+      this.props.history.push({
+          pathname:'/login/customer/list-products',
+          username:this.state.username
+      });
+  }
     onSubmit(e) {
         e.preventDefault();
-        // alert("searching!!");    
-        // alert(ref.state.username);
          ref.props.history.push({
              pathname: '/login/customer/search-products/products',
              product_name: ref.state.productname,
@@ -33,6 +42,26 @@ export default class SEARCH_PRODUCT extends Component {
     }
     render() {
         return (
+            <div>
+            <div className="container">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <div className="collapse navbar-collapse">
+            <ul className="navbar-nav mr-auto">
+              <li className="navbar-item">
+                <button type="button" onClick={this.searchProducts}>
+                  Search Products
+                </button>
+              </li>
+              <li className="navbar-item">
+                <button type="button" onClick={this.listProducts}>
+                  List Products
+                </button>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <br/>
+      </div>
             <div>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
@@ -47,6 +76,7 @@ export default class SEARCH_PRODUCT extends Component {
                         <input type="submit" value="Search" className="btn btn-primary"/>
                     </div>
                 </form>
+            </div>
             </div>
         )
     }

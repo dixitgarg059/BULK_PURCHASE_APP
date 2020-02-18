@@ -1,22 +1,12 @@
-// import React from 'react';
+
 import React, {Component} from 'react';
-// import axios from 'axios';
-// import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"
-// import SEARCH_PRODUCT from './customer-search-product.component'
 export default class Customer extends Component{
   constructor(props){
     super(props);
     this.state={
         username:this.props.location.username
     }
-    // this.state={
-    //   username :'',
-    //   productname :'',
-    //   price :0,
-    //   quantity :0
-
-    // }
   }
   searchProducts=() => {
     this.props.history.push({
@@ -24,15 +14,12 @@ export default class Customer extends Component{
         username:this.state.username});
   }
   listProducts=() => {
-    //   alert(this.state.username);
+
       this.props.history.push({
           pathname:'/login/customer/list-products',
           username:this.state.username
       });
   }
-//   createProduct=() => {
-//     this.props.history.push('/login/vendor/add-products');
-//   }
   render(){
     return (
       <div className="container">
@@ -49,12 +36,6 @@ export default class Customer extends Component{
                   List Products
                 </button>
               </li>
-              
-              {/* <li className="navbar-item">
-                <button type="button" onClick={this.showProducts}>
-                SHOW-PRODUCTS
-                </button>
-              </li> */}
             </ul>
           </div>
         </nav>

@@ -53,9 +53,70 @@ export default class Add_Products extends Component {
             quantity:0 
         });
     }
+    showProducts=() => {
+        if(!this.state.username)
+          alert("LOGIN FIRST!!\n");
+        else{
+        this.props.history.push({
+        pathname:'/login/vendor/products',
+        user:this.state.username
+      });
+    }
+      }
+        createProduct=() => { 
+              if(!this.state.username)
+                alert("LOGIN FIRST!!\n");
+              else{   
+              this.props.history.push({
+              pathname:'/login/vendor/add-products',
+              user:this.state.username
+            });
+          }
+        }
+        showReadyProducts=() => {
+          if(!this.state.username)
+            alert("LOGIN FIRST!!\n");
+          else{
+          this.props.history.push({
+          pathname:'/login/vendor/ready_products',
+          user:this.state.username
+        });
+      }
+      }
+    
+      showDispatchedProducts=() => {
+        if(!this.state.username)
+          alert("LOGIN FIRST!!\n");
+        else{
+        this.props.history.push({
+        pathname:'/login/vendor/dispatched_products',
+        user:this.state.username
+      });
+    }
+    }
 
     render() {
         return (
+            
+            <div>
+
+<div className="container">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="collapse navbar-collapse">
+            <ul className="navbar-nav mr-auto">
+                <li className="navbar-item"><button type="button" onClick={this.createProduct}>ADD-PRODUCT</button></li>
+                <li className="navbar-item"><button type="button" onClick={this.showProducts}>SHOW-PRODUCTS</button></li>
+                <li className="navbar-item"><button type="button" onClick={this.showReadyProducts}>SHOW-READY-TO-DISPATCH-PRODUCTS</button></li>
+                <li className="navbar-item"><button type="button" onClick={this.showDispatchedProducts}>SHOW-DISPATCHED-PRODUCTS</button></li>
+            </ul>
+        </div>
+        <div>{this.state.username}</div>
+    </nav>
+</div>
+
+
+
+
             <div>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
@@ -86,10 +147,8 @@ export default class Add_Products extends Component {
                         <input type="submit" value="ADD PRODUCT " className="btn btn-primary"/>
                     </div>
                 </form>
-                <div >
-                    {this.state.username}
-                </div>
             </div>
+        </div>
         )
     }
 }

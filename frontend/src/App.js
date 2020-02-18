@@ -16,6 +16,7 @@ import READY_PRODUCT from './components/ready-product.component.js'
 import EDIT_PRODUCT from './components/customer-edit-product.component'
 import PRODUCT_REVIEW from './components/customer-product-review.component'
 import DISPATCHED_PRODUCT from './components/dispatched-products.component'
+import RATE_VENDOR from './components/customer-rate-vendor.component'
 // import Customer from './components/customer.component'
 // import SEARCH_PRODUCT from  './components/customer-search-product.component' 
 import Searched_Products from './components/searched-product.component'
@@ -28,7 +29,7 @@ function App() {
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav mr-auto">
               <li className="navbar-item">
-                <Link to="/" className="nav-link">Users</Link>
+                <Link to="/user-list" className="nav-link">Users</Link>
               </li>
               <li className="navbar-item">
                 <Link to="/create" className="nav-link">Create User</Link>
@@ -41,7 +42,8 @@ function App() {
         </nav>
 
         <br/>
-        <Route path="/" exact component={UsersList}/>
+        <Route path="/" exact component={LOGIN}/>
+        <Route path="/user-list" exact component={UsersList}/>
         <Route path="/create" exact component={CreateUser}/>
         <Route path="/login" exact component={LOGIN}/>
         <Route path="/login/vendor" exact component={VENDOR}/>
@@ -59,6 +61,7 @@ function App() {
         <Route path="/login/customer/list-products/edit-product" exact component={EDIT_PRODUCT}/>
         <Route path="/login/customer/list-products/product-review" exact component={PRODUCT_REVIEW}/>
         <Route path="/login/vendor/dispatched_products" exact component={DISPATCHED_PRODUCT}/>
+        <Route path="/login/customer/list-products/rate-vendor" exact component={RATE_VENDOR}/>
         {/* pathname:'/login/customer/search-product/products', */}
 
       </div>

@@ -8,6 +8,7 @@ export default class PRODUCT_REVIEW extends Component {
         ref=this;
         ref.state = {
             customername:ref.props.location.customername,
+            username:ref.props.location.customername,
             vendorname:ref.props.location.vendorname,
             productname:ref.props.location.productname,
             review:"",
@@ -19,7 +20,6 @@ export default class PRODUCT_REVIEW extends Component {
     }
     
     onChangeReview(event) {
-        // alert(ref);
         ref.setState({ review: event.target.value });
     }
     onChangeRating(event){
@@ -27,7 +27,6 @@ export default class PRODUCT_REVIEW extends Component {
     }
     onSubmit(e) {
         e.preventDefault();
-
         const Review={
             customername:ref.state.customername,
             vendorname:ref.state.vendorname,
@@ -35,25 +34,47 @@ export default class PRODUCT_REVIEW extends Component {
             review:ref.state.review,
             rating:ref.state.rating
         }
-        alert(Review.vendorname);
-        alert(Review.productname);
-        // alert("adding to database");
-        // alert(ref.state.customername);
         axios.post('http://localhost:4000/add_review',Review)
             .then(res => console.log(res.data));
-        //  .catch(function(error) {
-            // console.log(error);
-        // })
-        // // axios.put('http://localhost:4000/updateorder',Product)
-        // ref.setState({
-        //     quantity:0
-        // });
         alert("Thanks for you feedback!!");
         
     }
+    searchProducts=() => {
+    this.props.history.push({
+        pathname:'/login/customer/search-products',
+        username:this.state.username});
+  }
+  listProducts=() => {
+
+      this.props.history.push({
+          pathname:'/login/customer/list-products',
+          username:this.state.username
+      });
+  }
     render() {
         return (
             <div>
+            <div className="container">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <div className="collapse navbar-collapse">
+            <ul className="navbar-nav mr-auto">
+              <li className="navbar-item">
+                <button type="button" onClick={this.searchProducts}>
+                  Search Products
+                </button>
+              </li>
+              <li className="navbar-item">
+                <button type="button" onClick={this.listProducts}>
+                  List Products
+                </button>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <br/>
+      </div>
+            <div>
+
                 <form onSubmit={ref.onSubmit}>
                     <div className="form-group">
                         <label>REVIEW: </label>
@@ -81,6 +102,7 @@ export default class PRODUCT_REVIEW extends Component {
                         <input type="submit" value="Rate" className="btn btn-primary"/>
                     </div>
                 </form>
+            </div>
             </div>
         )
     }

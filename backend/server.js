@@ -158,6 +158,34 @@ userRoutes.route('/update_order_in_order').put(function(req, res) {
     
 });
 
+// updating the user
+userRoutes.route('/update_user').put(function(req, res) {
+    // console.log("pddf");
+    // let product = new Product(req.body);
+    let username=req.body.username;
+    let type=req.body.type;
+    let count=req.body.count;
+    let sum=req.body.sum;
+    
+    // console.log(username);
+    // console.log(productname);
+    // let count=req.body.count;
+    // console.log(count);
+    // let status=req.body.status;
+    // console.log(status);
+    User.updateOne({username:`${username}`,type:`${type}`},{count:`${count}`,sum:`${sum}`},function(err,user){
+        if(err){
+         console.log("not updated");
+        }
+        else{
+            console.log("updated successfuly");
+            res.json(user);
+        }
+    })
+    
+});
+
+
 
 
 

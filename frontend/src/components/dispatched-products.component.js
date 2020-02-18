@@ -5,15 +5,11 @@ export default class DISPATCHED_PRODUCT extends Component {
 
     constructor(props) {
         super(props);
-        // ref.state
         ref=this;
-        alert(ref);
         ref.state={
             username :ref.props.location.user,
             orders:[],
-            products:[]
-            // final_products:[]
-      
+            products:[]  
           }
 
     }
@@ -21,7 +17,6 @@ export default class DISPATCHED_PRODUCT extends Component {
         axios.get('http://localhost:4000/a3')
              .then(response => {
                  ref.setState({orders: response.data});
-            // let final_products=[];
              })
              .catch(function(error) {
                  console.log(error);
@@ -29,20 +24,73 @@ export default class DISPATCHED_PRODUCT extends Component {
             axios.get('http://localhost:4000/a')
             .then(response => {
                 ref.setState({products: response.data});
-        // let final_products=[];
             })
             .catch(function(error) {
                 console.log(error);
             })
     }
+    showProducts=() => {
+        if(!this.state.username)
+          alert("LOGIN FIRST!!\n");
+        else{
+        this.props.history.push({
+        pathname:'/login/vendor/products',
+        user:this.state.username
+      });
+    }
+      }
+        createProduct=() => { 
+              if(!this.state.username)
+                alert("LOGIN FIRST!!\n");
+              else{   
+              this.props.history.push({
+              pathname:'/login/vendor/add-products',
+              user:this.state.username
+            });
+          }
+        }
+        showReadyProducts=() => {
+          if(!this.state.username)
+            alert("LOGIN FIRST!!\n");
+          else{
+          this.props.history.push({
+          pathname:'/login/vendor/ready_products',
+          user:this.state.username
+        });
+      }
+      }
+    
+      showDispatchedProducts=() => {
+        if(!this.state.username)
+          alert("LOGIN FIRST!!\n");
+        else{
+        this.props.history.push({
+        pathname:'/login/vendor/dispatched_products',
+        user:this.state.username
+      });
+    }
+    }
     
     render() {
         return (
             <div>
+                <div className="container">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="collapse navbar-collapse">
+            <ul className="navbar-nav mr-auto">
+                <li className="navbar-item"><button type="button" onClick={this.createProduct}>ADD-PRODUCT</button></li>
+                <li className="navbar-item"><button type="button" onClick={this.showProducts}>SHOW-PRODUCTS</button></li>
+                <li className="navbar-item"><button type="button" onClick={this.showReadyProducts}>SHOW-READY-TO-DISPATCH-PRODUCTS</button></li>
+                <li className="navbar-item"><button type="button" onClick={this.showDispatchedProducts}>SHOW-DISPATCHED-PRODUCTS</button></li>
+            </ul>
+        </div>
+        <div>{this.state.username}</div>
+    </nav>
+</div>
+            <div>
                 <table className="table table-striped">
                     <thead>
                         <tr>
-                            {/* <th>Owername</th> */}
                             <th>Product</th>
                             <th>Price</th>
                             <th>Reviews and Rating</th>
@@ -66,6 +114,7 @@ export default class DISPATCHED_PRODUCT extends Component {
                     }
                     </tbody>
                 </table>
+            </div>
             </div>
         )
     }

@@ -10,6 +10,7 @@ export default class ORDER_PRODUCT extends Component {
             customername:ref.props.location.customername,
             vendorname:ref.props.location.vendorname,
             productname:ref.props.location.productname,
+            username:ref.props.location.username,
             quantity:0
         };
         ref.onChangeQuantity = ref.onChangeQuantity.bind(ref);
@@ -18,9 +19,20 @@ export default class ORDER_PRODUCT extends Component {
     }
     
     onChangeQuantity(event) {
-        // alert(ref);
         ref.setState({ quantity: event.target.value });
     }
+    searchProducts=() => {
+    this.props.history.push({
+        pathname:'/login/customer/search-products',
+        username:this.state.username});
+  }
+  listProducts=() => {
+
+      this.props.history.push({
+          pathname:'/login/customer/list-products',
+          username:this.state.username
+      });
+  }
     onSubmit(e) {
         e.preventDefault();
 
@@ -31,17 +43,8 @@ export default class ORDER_PRODUCT extends Component {
             quantity:ref.state.quantity,
             status:"WAITING"
         }
-        // alert("adding to database");
-        // alert(ref.state.customername);
         axios.post('http://localhost:4000/add_order', Product)
             .then(res => console.log(res.data));
-        //  .catch(function(error) {
-            // console.log(error);
-        // })
-        // // axios.put('http://localhost:4000/updateorder',Product)
-        // ref.setState({
-        //     quantity:0
-        // });
         const Pr={
             username:ref.state.vendorname,
             productname:ref.state.productname
@@ -54,34 +57,27 @@ export default class ORDER_PRODUCT extends Component {
                 let quant=parseInt(response.data.quantity);
                 let cnt=response.data.count;
                 new_cnt=parseInt(cnt)+parseInt(ref.state.quantity);
-                // alert(new_cnt);
                 if(new_cnt >= quant)
                 {
-                    // alert("in if ");
+                    
                     stat="Ready";
-                    // new_cnt=0;  
+                      
 
                 }
                 else
                 {
-                    // alert("in else");
+                    
                     stat="Waiting";
                 }
                 
-                // this.setState({users: response.data.});
-
                 const Pr2={
                     username:ref.state.vendorname,
                     productname:ref.state.productname,
                     count:new_cnt,
                     status:stat
                 }
-                // alert(Pr2.status);
-                // alert(Pr2.count);
-        
                 axios.put('http://localhost:4000/update-product',Pr2)
                     .then(response => console.log(""));
-                            // 
                     alert("Ordering done!\n");
             });
         
@@ -89,6 +85,27 @@ export default class ORDER_PRODUCT extends Component {
     render() {
         return (
             <div>
+            <div className="container">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <div className="collapse navbar-collapse">
+            <ul className="navbar-nav mr-auto">
+              <li className="navbar-item">
+                <button type="button" onClick={this.searchProducts}>
+                  Search Products
+                </button>
+              </li>
+              <li className="navbar-item">
+                <button type="button" onClick={this.listProducts}>
+                  List Products
+                </button>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <br/>
+      </div>
+            <div>
+
                 <form onSubmit={ref.onSubmit}>
                     <div className="form-group">
                         <label>Quantity: </label>
@@ -102,6 +119,7 @@ export default class ORDER_PRODUCT extends Component {
                         <input type="submit" value="Order" className="btn btn-primary"/>
                     </div>
                 </form>
+            </div>
             </div>
         )
     }

@@ -62,7 +62,7 @@ export default class VENDOR extends Component{
             <ul className="navbar-nav mr-auto">
               <li className="navbar-item">
                 <button type="button" onClick={this.createProduct}>
-                  ADD-PRODUCT1
+                  ADD-PRODUCT
                 </button>
               </li>
               <li className="navbar-item">
@@ -80,7 +80,7 @@ export default class VENDOR extends Component{
               <li className="navbar-item">
                 <button type="button" onClick={this.showDispatchedProducts}>
                 SHOW-DISPATCHED-PRODUCTS
-                </button>Productname
+                </button>
                 
               </li>
             </ul>

@@ -25,15 +25,8 @@ export default class Products extends Component {
              })
     }
     Cancel=(ownername,productname) =>{
-        // this.props.history.push()
         alert("you are cancelling the product");
         
-        // this.props.history.push({
-        //     pathname:'/login/customer/search-products/products/order',
-        //     customername:this.state.username,
-        //     vendorname:ownername,
-        //     productname:this.state.productname
-        //   });
         const Pr2={
             username:ownername,
             productname:productname,
@@ -43,9 +36,65 @@ export default class Products extends Component {
                     .then(response => console.log(""));
 
     }
+    showProducts=() => {
+        if(!this.state.username)
+          alert("LOGIN FIRST!!\n");
+        else{
+        this.props.history.push({
+        pathname:'/login/vendor/products',
+        user:this.state.username
+      });
+    }
+      }
+        createProduct=() => { 
+              if(!this.state.username)
+                alert("LOGIN FIRST!!\n");
+              else{   
+              this.props.history.push({
+              pathname:'/login/vendor/add-products',
+              user:this.state.username
+            });
+          }
+        }
+        showReadyProducts=() => {
+          if(!this.state.username)
+            alert("LOGIN FIRST!!\n");
+          else{
+          this.props.history.push({
+          pathname:'/login/vendor/ready_products',
+          user:this.state.username
+        });
+      }
+      }
+    
+      showDispatchedProducts=() => {
+        if(!this.state.username)
+          alert("LOGIN FIRST!!\n");
+        else{
+        this.props.history.push({
+        pathname:'/login/vendor/dispatched_products',
+        user:this.state.username
+      });
+    }
+    }
     render() {
         return (
             <div>
+                <div className="container">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="collapse navbar-collapse">
+            <ul className="navbar-nav mr-auto">
+                <li className="navbar-item"><button type="button" onClick={this.createProduct}>ADD-PRODUCT</button></li>
+                <li className="navbar-item"><button type="button" onClick={this.showProducts}>SHOW-PRODUCTS</button></li>
+                <li className="navbar-item"><button type="button" onClick={this.showReadyProducts}>SHOW-READY-TO-DISPATCH-PRODUCTS</button></li>
+                <li className="navbar-item"><button type="button" onClick={this.showDispatchedProducts}>SHOW-DISPATCHED-PRODUCTS</button></li>
+            </ul>
+        </div>
+        <div>{this.state.username}</div>
+    </nav>
+</div>
+            <div>
+
                 <table className="table table-striped">
                     <thead>
                         <tr>
@@ -84,6 +133,7 @@ export default class Products extends Component {
                     }
                     </tbody>
                 </table>
+            </div>
             </div>
         )
     }

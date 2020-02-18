@@ -9,6 +9,12 @@ let User = new mongoose.Schema({
     },
     type :{
         type:String
+    },
+    count:{
+        type:Number
+    },
+    sum:{
+        type:Number
     }
 });
 

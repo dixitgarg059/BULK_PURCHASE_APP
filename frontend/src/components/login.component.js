@@ -73,8 +73,8 @@ export default class LOGIN extends Component {
                                />
                     </div>
                     <div className="form-group">
-                        <label>Email: </label>
-                        <input type="text" 
+                        <label>Password: </label>
+                        <input type="password" 
                                className="form-control" 
                                value={this.state.email}
                                onChange={this.onChangeEmail}

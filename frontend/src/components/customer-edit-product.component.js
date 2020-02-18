@@ -8,6 +8,7 @@ export default class ORDER_PRODUCT extends Component {
         ref=this;
         ref.state = {
             customername:ref.props.location.customername,
+            username:ref.props.location.customername,
             vendorname:ref.props.location.vendorname,
             productname:ref.props.location.productname,
             prev_quantity:ref.props.location.quantity,
@@ -16,9 +17,20 @@ export default class ORDER_PRODUCT extends Component {
         ref.onChangeQuantity = ref.onChangeQuantity.bind(ref);
 
     }
+    searchProducts=() => {
+    this.props.history.push({
+        pathname:'/login/customer/search-products',
+        username:this.state.username});
+  }
+  listProducts=() => {
+
+      this.props.history.push({
+          pathname:'/login/customer/list-products',
+          username:this.state.customername
+      });
+  }
     
     onChangeQuantity(event) {
-        // alert(ref);
         ref.setState({ new_quantity: event.target.value });
     }
     onSubmit(e) {
@@ -31,17 +43,9 @@ export default class ORDER_PRODUCT extends Component {
             quantity:ref.state.new_quantity,
             status:"WAITING"
         }
-        // alert("adding to database");
-        // alert(ref.state.customername);
         axios.put('http://localhost:4000/update_order_in_order', Product)
             .then(res => console.log(res.data));
-        //  .catch(function(error) {
-            // console.log(error);
-        // })
-        // // axios.put('http://localhost:4000/updateorder',Product)
-        // ref.setState({
-        //     quantity:0
-        // });
+
         const Pr={
             username:ref.state.vendorname,
             productname:ref.state.productname
@@ -57,28 +61,19 @@ export default class ORDER_PRODUCT extends Component {
                 // alert(new_cnt);
                 if(new_cnt >= quant)
                 {
-                    // alert("in if ");
                     stat="Ready";
-                    // new_cnt=0;  
 
                 }
                 else
                 {
-                    // alert("in else");
                     stat="Waiting";
                 }
-                
-                // this.setState({users: response.data.});
-
                 const Pr2={
                     username:ref.state.vendorname,
                     productname:ref.state.productname,
                     count:new_cnt,
                     status:stat
                 }
-                // alert(Pr2.status);
-                // alert(Pr2.count);
-        
                 axios.put('http://localhost:4000/update-product',Pr2)
                     .then(response => console.log(""));
                             // 
@@ -88,6 +83,26 @@ export default class ORDER_PRODUCT extends Component {
     }
     render() {
         return (
+            <div>
+            <div className="container">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <div className="collapse navbar-collapse">
+            <ul className="navbar-nav mr-auto">
+              <li className="navbar-item">
+                <button type="button" onClick={this.searchProducts}>
+                  Search Products
+                </button>
+              </li>
+              <li className="navbar-item">
+                <button type="button" onClick={this.listProducts}>
+                  List Products
+                </button>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <br/>
+      </div>
             <div>
                 <form onSubmit={ref.onSubmit}>
                     <div className="form-group">
@@ -102,6 +117,7 @@ export default class ORDER_PRODUCT extends Component {
                         <input type="submit" value="EDIT ORDER" className="btn btn-primary"/>
                     </div>
                 </form>
+            </div>
             </div>
         )
     }

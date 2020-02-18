@@ -9,7 +9,9 @@ export default class CreateUser extends Component {
         this.state = {
             username: '',
             email: '',
-            type: "Vendor"
+            type: "Vendor",
+            sum:0,
+            count:0
         }
 
         this.onChangeUsername = this.onChangeUsername.bind(this);
@@ -35,7 +37,9 @@ export default class CreateUser extends Component {
         const newUser = {
             username: this.state.username,
             email: this.state.email,
-            type :this.state.type
+            type :this.state.type,
+            count:this.state.count,
+            sum:this.state.sum
         }
 
         axios.post('http://localhost:4000/add', newUser)
@@ -61,8 +65,8 @@ export default class CreateUser extends Component {
                                />
                     </div>
                     <div className="form-group">
-                        <label>Email: </label>
-                        <input type="text" 
+                        <label>Password: </label>
+                        <input type="password" 
                                className="form-control" 
                                value={this.state.email}
                                onChange={this.onChangeEmail}
