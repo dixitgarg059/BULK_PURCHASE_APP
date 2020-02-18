@@ -21,8 +21,8 @@ export default class SEARCH_PRODUCT extends Component {
     }
     onSubmit(e) {
         e.preventDefault();
-        alert("searching!!");
-        alert(ref.state.username);
+        // alert("searching!!");    
+        // alert(ref.state.username);
          ref.props.history.push({
              pathname: '/login/customer/search-products/products',
              product_name: ref.state.productname,

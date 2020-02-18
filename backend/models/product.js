@@ -12,6 +12,12 @@ let Product = new mongoose.Schema({
     },
     quantity :{
         type:Number
+    },
+    status:{
+        type:String
+    },
+    count:{
+        type:Number
     }
 });
 

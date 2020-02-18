@@ -31,6 +31,16 @@ export default class VENDOR extends Component{
         });
       }
     }
+    showReadyProducts=() => {
+      if(!this.state.username)
+        alert("LOGIN FIRST!!\n");
+      else{
+      this.props.history.push({
+      pathname:'/login/vendor/ready_products',
+      user:this.state.username
+    });
+  }
+  }
   render(){
     return (
       <div className="container">
@@ -46,6 +56,13 @@ export default class VENDOR extends Component{
                 <button type="button" onClick={this.showProducts}>
                 SHOW-PRODUCTS
                 </button>
+
+              </li>
+              <li className="navbar-item">
+                <button type="button" onClick={this.showReadyProducts}>
+                SHOW-READY-TO-DISPATCH-PRODUCTS
+                </button>
+                
               </li>
               
             </ul>

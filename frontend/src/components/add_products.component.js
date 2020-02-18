@@ -10,7 +10,10 @@ export default class Add_Products extends Component {
             username: this.props.location.user,
             productname: '',
             price:0,
-            quantity:0 
+            quantity:0, 
+            status:"Waiting",
+            count:0
+
         }
         this.onChangeProductname = this.onChangeProductname.bind(this);
         this.onChangePrice= this.onChangePrice.bind(this);
@@ -35,7 +38,9 @@ export default class Add_Products extends Component {
             username: this.state.username,
             productname: this.state.productname,
             price :this.state.price,
-            quantity:this.state.quantity
+            quantity:this.state.quantity,
+            status:"Waiting",
+            count:0
         }
         // console.log("onsubmit clicked");
 
@@ -70,7 +75,7 @@ export default class Add_Products extends Component {
                                />  
                     </div>
                     <div className="form-group">
-                        <label>Quantity: </label>
+                        <label>Quantity of the Bundle: </label>
                         <input type="text" 
                                className="form-control" 
                                value={this.state.quantity}

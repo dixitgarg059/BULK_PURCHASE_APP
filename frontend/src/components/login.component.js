@@ -50,6 +50,7 @@ export default class LOGIN extends Component {
                         
                     }
                 }
+                // localStorage.setItem("username,newUser.username");
              });
 
         this.setState({ 
