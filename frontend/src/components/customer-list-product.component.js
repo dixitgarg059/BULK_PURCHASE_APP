@@ -60,11 +60,11 @@ export default class LIST_PRODUCT extends Component {
         // this.props.history.push()
         // alert("you are ordering");
         // alert(this.state.username);
-        this.props.history.push({
-            pathname:'/login/customer/search-products/products/order',
-            customername:this.state.username,
+        ref.props.history.push({
+            pathname:'/login/customer/list-products/product-review',
+            customername:ref.state.username,
             vendorname:ownername,
-            productname:this.state.productname
+            productname:productname
           });
     }
 
@@ -91,7 +91,6 @@ export default class LIST_PRODUCT extends Component {
                             if(currentProduct.customername ===   ref.state.username)
                             if(ref.getStatus(currentProduct.productname,currentProduct.vendorname) === "Waiting")
                             {
-
                                 return (
                                     <tr>
                                         <td>{currentProduct.vendorname}</td>
@@ -119,7 +118,7 @@ export default class LIST_PRODUCT extends Component {
                                         <td>Placed</td>  
                                         {/* <td>{currentProduct.customername}</td> */}
                                         <td>0</td>
-                                        <button type="button" onClick={() => this.RateVendor(currentProduct.username,currentProduct.productname)}>RateVendor</button>
+                                        <button type="button" onClick={() => this.RateVendor(currentProduct.vendorname,currentProduct.productname)}>RateVendor</button>
 
 
                                     </tr>
@@ -138,7 +137,7 @@ export default class LIST_PRODUCT extends Component {
                                         <td>Dispatched</td>  
                                         {/* <td>{currentProduct.customername}</td> */}
                                         <td>0</td>
-                                        <button type="button" onClick={() => this.ProductReview(currentProduct.username,currentProduct.productname)}>Give Product Review</button>
+                                        <button type="button" onClick={() => this.ProductReview(currentProduct.vendorname,currentProduct.productname)}>Give Product Review</button>
 
 
                                     </tr>

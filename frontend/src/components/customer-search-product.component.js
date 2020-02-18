@@ -5,7 +5,6 @@ export default class SEARCH_PRODUCT extends Component {
     
     constructor(props) {
         super(props);
-
         this.state = {
             productname: '',
             username:this.props.location.username

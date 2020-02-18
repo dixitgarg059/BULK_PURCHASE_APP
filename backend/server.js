@@ -10,7 +10,7 @@ const userRoutes = express.Router();
 let User = require('./models/user');
 let Product=require('./models/product');
 let Order=require('./models/order');
-
+let Review=require('./models/review');
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -33,6 +33,7 @@ userRoutes.route('/').get(function(req, res) {
         }
     });
 });
+// Getting all the products
 userRoutes.route('/a').get(function(req, res) {
     Product.find(function(err, product) 
     {
@@ -80,6 +81,34 @@ userRoutes.route('/add_products').post(function(req, res) {
         });
 });
 
+
+
+// Adding a new Review 
+
+
+userRoutes.route('/add_review').post(function(req, res) {
+    let review = new Review(req.body);
+    review.save()
+        .then(review => {
+            res.status(200).json({'Review': 'Review added successfully'});
+        })
+        .catch(err => {
+            res.status(400).send('Error');
+        });
+})
+
+
+// Getting all the reviews
+userRoutes.route('/a3').get(function(req, res) {
+    Review.find(function(err, review) 
+    {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json(review);
+        }
+    });
+});
 userRoutes.route('/update-product').put(function(req, res) {
     // console.log("pddf");
     // let product = new Product(req.body);

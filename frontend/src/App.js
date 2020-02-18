@@ -14,6 +14,8 @@ import ORDER_PRODUCT from './components/customer-order-product.component'
 import LIST_PRODUCT from './components/customer-list-product.component'
 import READY_PRODUCT from './components/ready-product.component.js'
 import EDIT_PRODUCT from './components/customer-edit-product.component'
+import PRODUCT_REVIEW from './components/customer-product-review.component'
+import DISPATCHED_PRODUCT from './components/dispatched-products.component'
 // import Customer from './components/customer.component'
 // import SEARCH_PRODUCT from  './components/customer-search-product.component' 
 import Searched_Products from './components/searched-product.component'
@@ -55,6 +57,8 @@ function App() {
         <Route path="/login/customer/list-products" exact component={LIST_PRODUCT}/>
         <Route path="/login/vendor/ready_products" exact component={READY_PRODUCT}/>
         <Route path="/login/customer/list-products/edit-product" exact component={EDIT_PRODUCT}/>
+        <Route path="/login/customer/list-products/product-review" exact component={PRODUCT_REVIEW}/>
+        <Route path="/login/vendor/dispatched_products" exact component={DISPATCHED_PRODUCT}/>
         {/* pathname:'/login/customer/search-product/products', */}
 
       </div>
