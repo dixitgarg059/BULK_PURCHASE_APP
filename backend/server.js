@@ -110,17 +110,11 @@ userRoutes.route('/a3').get(function(req, res) {
     });
 });
 userRoutes.route('/update-product').put(function(req, res) {
-    // console.log("pddf");
-    // let product = new Product(req.body);
+    
     let username=req.body.username;
     let productname=req.body.productname;
-
-    console.log(username);
-    console.log(productname);
     let count=req.body.count;
-    console.log(count);
     let status=req.body.status;
-    console.log(status);
     Product.updateOne({username:`${username}`,productname:`${productname}`},{count:`${count}`,status:`${status}`},function(err,product){
         if(err){
          console.log("not updated");
@@ -133,19 +127,10 @@ userRoutes.route('/update-product').put(function(req, res) {
     
 });
 userRoutes.route('/update_order_in_order').put(function(req, res) {
-    // console.log("pddf");
-    // let product = new Product(req.body);
     let customername=req.body.customername;
     let vendorname=req.body.vendorname;
     let productname=req.body.productname;
     let quantity=req.body.quantity;
-    
-    // console.log(username);
-    // console.log(productname);
-    // let count=req.body.count;
-    // console.log(count);
-    // let status=req.body.status;
-    // console.log(status);
     Order.updateOne({customername:`${customername}`,vendorname:`${vendorname}`,productname:`${productname}`},{quantity:`${quantity}`},function(err,order){
         if(err){
          console.log("not updated");
@@ -160,19 +145,10 @@ userRoutes.route('/update_order_in_order').put(function(req, res) {
 
 // updating the user
 userRoutes.route('/update_user').put(function(req, res) {
-    // console.log("pddf");
-    // let product = new Product(req.body);
     let username=req.body.username;
     let type=req.body.type;
     let count=req.body.count;
     let sum=req.body.sum;
-    
-    // console.log(username);
-    // console.log(productname);
-    // let count=req.body.count;
-    // console.log(count);
-    // let status=req.body.status;
-    // console.log(status);
     User.updateOne({username:`${username}`,type:`${type}`},{count:`${count}`,sum:`${sum}`},function(err,user){
         if(err){
          console.log("not updated");
@@ -190,18 +166,26 @@ userRoutes.route('/update_user').put(function(req, res) {
 
 
 userRoutes.route('/update-product2').put(function(req, res) {
-    console.log("pddf");
-    // let product = new Product(req.body);
     let username=req.body.username;
     let productname=req.body.productname;
-
-    console.log(username);
-    console.log(productname);
-    // let count=req.body.count;
-    // console.log(count);
     let status=req.body.status;
-    console.log(status);
     Product.updateOne({username:`${username}`,productname:`${productname}`},{status:`${status}`},function(err,product){
+        if(err){
+         console.log("not updated");
+        }
+        else{
+            console.log("updated successfuly");
+            res.json(product);
+        }
+    })
+    
+});
+userRoutes.route('/update-product3').put(function(req, res) {
+    let username=req.body.username;
+    let productname=req.body.productname;
+    let count=req.body.count;
+    let status=req.body.status;
+    Product.updateOne({username:`${username}`,productname:`${productname}`},{status:`${status}`,count:`${count}`},function(err,product){
         if(err){
          console.log("not updated");
         }
@@ -222,7 +206,6 @@ userRoutes.route('/check1').post(function(req, res) {
 
 // Add Orders in the database
 userRoutes.route('/add_order').post(function(req, res) {
-    console.log("in");
     let order = new Order(req.body);
     order.save()
         .then(order => {
@@ -241,6 +224,12 @@ userRoutes.route('/check').post(function(req, res) {
     let boddy=req.body;
     User.findOne(boddy, function(err, user) {
         res.json(user);
+    });   
+});
+userRoutes.route('/checkproduct').post(function(req, res) {
+    let boddy=req.body;
+    Product.findOne(boddy, function(err, product) {
+        res.json(product);
     });   
 });
 userRoutes.route('/searchproduct').post(function(req, res) {

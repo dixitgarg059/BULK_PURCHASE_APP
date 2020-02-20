@@ -10,7 +10,10 @@ export default class Searched_Products extends Component {
             username:ref.props.location.username,
             productname :ref.props.location.product_name,
             products: [],
-            users:[]
+            users:[],
+            orders:[],
+            Reviews:'',
+            toggle:0
         }
     }
     searchProducts=() => {
@@ -40,6 +43,13 @@ export default class Searched_Products extends Component {
              .catch(function(error){
                  console.log(error);
              })
+        axios.get('http://localhost:4000/a3')
+        .then(response => {
+            ref.setState({orders: response.data});
+        })
+        .catch(function(error) {
+            console.log(error);
+        })
     }
     Order=(ownername) =>{
         this.props.history.push({
@@ -114,29 +124,29 @@ export default class Searched_Products extends Component {
                             <th>Productname</th>
                             <th>Price</th>
                             <th>Vendor Rating</th>
-                            
                             <th>Quantity Remaining in the Bundle</th>
+                            <th>Vendor Reviews</th>
+
                             <th>
                                     <button type="button" onClick={() => this.sortByPrice()}>SORT BY PRICE</button>
                                     <button type="button" onClick={() => this.sortByQuantity()}>SORT BY QUANTITY</button>
-
-
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                     { 
                         ref.state.products.map((currentProduct, i) => {
-                            if(currentProduct.productname === ref.state.productname && currentProduct.status === "Waiting")
+                            if(currentProduct.productname === ref.state.productname && (currentProduct.status === "Waiting" || currentProduct.status === "Canceled"))
                             return (
                                 <tr>
-                                    <td>{currentProduct.username}</td>
+                                    <td onClick={() => this.printReviews(currentProduct.username)}>{currentProduct.username}</td>
                                     <td>{currentProduct.productname}</td>
                                     <td>{currentProduct.price}</td>
                                     <td>{this.getVendorRating(currentProduct.username)}</td>
                                     <td>{currentProduct.quantity - currentProduct.count}</td>  
+                                    <td>{this.state.Reviews}</td>
                                     <button type="button" onClick={() => this.Order(currentProduct.username)}>ORDER</button>
-                  
+
                                 
                                 </tr>
                             )
@@ -167,4 +177,39 @@ export default class Searched_Products extends Component {
             ret="unrated";
         return ret;
     }
+    getReviews(vendorname,productname)
+    {
+        let ret="";
+        for(var i=0;i<ref.state.orders.length;i++)
+        {
+            if(ref.state.orders[i].vendorname === vendorname)
+            {
+                let ret1="Customer Name: ";
+                ret1+=ref.state.orders[i].customername;
+                ret1+="\nProduct : ";
+                ret1+=ref.state.orders[i].productname;
+                ret1+="\nReview: ";
+                ret1+=ref.state.orders[i].review;
+                ret1+="\nRating: ";
+                ret1+=ref.state.orders[i].rating;
+                ret1+="\n";
+                ret+=ret1;
+            }
+            
+        }
+    if(ret === "")
+        ret="No Reviews!\n";
+    return ret;
+
+    }
+    printReviews(vendorname)
+    {
+        this.setState({toggle:1-this.state.toggle});
+        if(this.state.toggle  == 1)
+            this.setState({Reviews:this.getReviews(vendorname)});
+        else
+            this.setState({Reviews:''});
+        
+    }
+
 }

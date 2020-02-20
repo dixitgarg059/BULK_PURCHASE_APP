@@ -24,15 +24,21 @@ export default class Products extends Component {
                  console.log(error);
              })
     }
-    Cancel=(ownername,productname) =>{
+    Cancel=(ownername,productname,count1) =>{
+        if(count1 == 0)
+        {
+          alert("No orders Yet!!");
+          return;
+        }
         alert("you are cancelling the product");
         
         const Pr2={
             username:ownername,
             productname:productname,
-            status:"Canceled"
+            status:"Canceled",
+            count:0
         }
-        axios.put('http://localhost:4000/update-product2',Pr2)
+        axios.put('http://localhost:4000/update-product3',Pr2)
                     .then(response => console.log(""));
 
     }
@@ -110,7 +116,7 @@ export default class Products extends Component {
                     { 
                     
                         this.state.product.map((currentProduct, i) => {
-                            if(this.state.username === currentProduct.username && currentProduct.status =="Waiting")
+                            if(this.state.username === currentProduct.username && (currentProduct.status =="Waiting" || currentProduct.status == "Canceled"))
                                 return (
                                     <tr>
                                         {/* <td>{currentProduct.username}</td> */}
@@ -123,7 +129,7 @@ export default class Products extends Component {
                                         {/* <button type="button" onClick={this.CancelProducts}>
                                                 Cancel
                                         </button> */}
-                                        <button type="button" onClick={() => this.Cancel(currentProduct.username,currentProduct.productname)}>Cancel</button>
+                                        <button type="button" onClick={() => this.Cancel(currentProduct.username,currentProduct.productname,currentProduct.count)}>Cancel</button>
 
                                         </li>
                                     </tr>

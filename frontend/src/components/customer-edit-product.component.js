@@ -35,17 +35,11 @@ export default class ORDER_PRODUCT extends Component {
     }
     onSubmit(e) {
         e.preventDefault();
-
-        const Product={
-            customername:ref.state.customername,
-            vendorname:ref.state.vendorname,
-            productname:ref.state.productname,
-            quantity:ref.state.new_quantity,
-            status:"WAITING"
+        if(ref.state.quantity == 0)
+        {
+            alert("invalid input\n");
+            return ;
         }
-        axios.put('http://localhost:4000/update_order_in_order', Product)
-            .then(res => console.log(res.data));
-
         const Pr={
             username:ref.state.vendorname,
             productname:ref.state.productname
@@ -58,25 +52,38 @@ export default class ORDER_PRODUCT extends Component {
                 let quant=parseInt(response.data.quantity);
                 let cnt=response.data.count;
                 new_cnt=parseInt(cnt)+parseInt(ref.state.new_quantity)-parseInt(ref.state.prev_quantity);
-                // alert(new_cnt);
-                if(new_cnt >= quant)
+                if(new_cnt > quant)
+                {
+                    // alert("ordered quantity cannot exceed")
+                    alert("ordered quantity cannot exceed quantity remaining in the bundle");
+                    return ;
+                }
+                else if(new_cnt == quant)
                 {
                     stat="Ready";
-
                 }
                 else
                 {
                     stat="Waiting";
                 }
-                const Pr2={
+                const Product={
+                    customername:ref.state.customername,
+                    vendorname:ref.state.vendorname,
+                    productname:ref.state.productname,
+                    quantity:ref.state.new_quantity,
+                    status:"WAITING"
+                }
+                axios.put('http://localhost:4000/update_order_in_order', Product)
+                    .then(res => console.log(res.data));
+                const Pr3={
                     username:ref.state.vendorname,
                     productname:ref.state.productname,
                     count:new_cnt,
                     status:stat
                 }
-                axios.put('http://localhost:4000/update-product',Pr2)
-                    .then(response => console.log(""));
-                            // 
+                
+                axios.put('http://localhost:4000/update-product',Pr3)
+                    .then(response => console.log("update-product_done")); 
                     alert("Editing done!\n");
             });
         

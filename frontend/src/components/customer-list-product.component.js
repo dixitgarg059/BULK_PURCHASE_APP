@@ -155,7 +155,8 @@ export default class LIST_PRODUCT extends Component {
                                         <td>{currentProduct.quantity}</td>
                                         <td>Waiting</td>  
                                         <td>{ref.getQuantity(currentProduct.productname,currentProduct.vendorname)}</td>
-                                        <button type="button" onClick={() => this.Edit(currentProduct.vendorname,currentProduct.productname)}>Edit</button>
+                                        
+                                        <button type="button" onClick={() => this.Edit(currentProduct.vendorname,currentProduct.productname,currentProduct.quantity)}>Edit</button>
 
                                         </tr>
                                 )

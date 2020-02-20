@@ -47,18 +47,45 @@ export default class Add_Products extends Component {
         {
           alert("not able to add 0 quantity product\n");
           flg=0;
+          return ;
         }
         if(flg==1){
+
+
+
+          const CheckProduct={
+            username:this.state.username,
+            productname:this.state.productname
+        }
+        axios.post('http://localhost:4000/checkproduct',CheckProduct)
+        .then(res => {
+            if(!res.data)
+            {
+
+              axios.post('http://localhost:4000/add_products', newProduct)
+              .then(res => console.log(res.data));
+              
+              this.setState({
+                productname: '',
+                price:0,
+                quantity:0 
+            });
+    
+            }
+           else
+           {
+               alert("Product Exists!!");           
+              this.setState({
+                productname: '',
+                price:0,
+                quantity:0 
+            });
+               return ;
+            }
+        });
         // console.log("onsubmit clicked");
 
-        axios.post('http://localhost:4000/add_products', newProduct)
-             .then(res => console.log(res.data));
-
-        this.setState({
-            productname: '',
-            price:0,
-            quantity:0 
-        });
+        
       }
     }
     showProducts=() => {

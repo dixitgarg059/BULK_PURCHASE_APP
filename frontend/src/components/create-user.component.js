@@ -34,22 +34,44 @@ export default class CreateUser extends Component {
     onSubmit(e) {
         e.preventDefault();
 
-        const newUser = {
-            username: this.state.username,
-            email: this.state.email,
-            type :this.state.type,
-            count:this.state.count,
-            sum:this.state.sum
+
+        const CheckUser={
+            username:this.state.username
         }
-
-        axios.post('http://localhost:4000/add', newUser)
-             .then(res => console.log(res.data));
-
-        this.setState({
-            username: '',
-            email: '',
-            type:''
+        axios.post('http://localhost:4000/check',CheckUser)
+        .then(res => {
+            if(!res.data)
+            {
+                const newUser = {
+                    username: this.state.username,
+                    email: this.state.email,
+                    type :this.state.type,
+                    count:this.state.count,
+                    sum:this.state.sum
+                }
+                
+                axios.post('http://localhost:4000/add', newUser)
+                     .then(res => console.log(res.data));
+                     this.setState({
+                        username: '',
+                        email: '',
+                        type:"Vendor"
+                    });
+                
+            }
+           else
+           {
+               alert("username already exists!!");
+               this.setState({
+                username: '',
+                email: '',
+                type:"Vendor"
+            });           
+               return ;
+            }
         });
+
+        
     }
 
     render() {
